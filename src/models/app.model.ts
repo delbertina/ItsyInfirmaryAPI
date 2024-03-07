@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('menus')
-export class Menu {
+@Entity('supplyitem')
+export class SupplyItem {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,9 +11,6 @@ export class Menu {
   @Column({ name: 'description', length: 180, nullable: false })
   description: string;
 
-  @Column({ name: 'imageUrl', nullable: false })
-  imageUrl: string;
-
-  @Column({ name: 'rating', type: 'float', nullable: true })
-  rating: number;
+  @Column({ name: 'perishable', nullable: false })
+  perishable: boolean;
 }
