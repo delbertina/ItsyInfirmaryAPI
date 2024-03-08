@@ -1,9 +1,30 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DataSource } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { SupplyItem } from './models/app.model';
 
 const APP_PORT = 3000;
+
+const STARTER_SUPPLY_ITEMS: Array<SupplyItem> = [
+  {
+    id: 1,
+    name: 'Napkin',
+    description: 'Plain white 2-ply somewhat absorbant paper product.',
+    perishable: false,
+  },
+  {
+    id: 2,
+    name: 'Pencil',
+    description: 'Small wooden writing untencil',
+    perishable: false,
+  },
+  {
+    id: 3,
+    name: 'Paper',
+    description: 'Stiff white paper product. Good for writing on.',
+    perishable: false,
+  },
+];
 
 export const appDataSource = new DataSource({
   type: 'sqlite',
@@ -28,16 +49,18 @@ async function bootstrap() {
   const supplyItemRepo = appDataSource.getRepository(SupplyItem);
   const supplyItemCount = await supplyItemRepo.count();
   // If there's nothing in the table, add it.
-  console.log(`supply item count: ${supplyItemCount}`);
   if (!supplyItemCount) {
-    const napkinItem = new SupplyItem();
-    napkinItem.name = 'Napkin';
-    napkinItem.description =
-      'Plain white 2-ply somewhat absorbant paper product.';
-    napkinItem.perishable = false;
-    await supplyItemRepo.save(napkinItem);
+    STARTER_SUPPLY_ITEMS.forEach(
+      async (item) => await addSupplyItem(supplyItemRepo, item),
+    );
   }
-  const supplyItemCount2 = await supplyItemRepo.count();
-  console.log(`supply item count: ${supplyItemCount2}`);
+}
+
+async function addSupplyItem(repo: Repository<SupplyItem>, item: SupplyItem) {
+  const newItem = new SupplyItem();
+  newItem.name = item.name;
+  newItem.description = item.description;
+  newItem.perishable = item.perishable;
+  await repo.save(newItem);
 }
 bootstrap();
