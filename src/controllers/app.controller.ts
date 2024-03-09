@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from '../services/app.service';
+import { SupplyItem } from 'src/models/app.model';
 
 @Controller()
 export class AppController {
@@ -8,5 +9,10 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('SupplyItem/:id')
+  async getSupplyItem(@Param('id') id: number): Promise<SupplyItem | null> {
+    return await this.appService.findOne(id);
   }
 }
