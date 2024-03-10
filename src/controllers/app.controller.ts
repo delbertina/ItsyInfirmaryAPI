@@ -15,4 +15,9 @@ export class AppController {
   async getSupplyItem(@Param('id') id: number): Promise<SupplyItem | null> {
     return await this.appService.findOne(id);
   }
+
+  @Get('SupplyItemList/')
+  async getSupplyItemList(): Promise<Array<SupplyItem>> {
+    return await this.appService.findAll();
+  }
 }

@@ -50,7 +50,7 @@ async function bootstrap() {
   const supplyItemCount = await supplyItemRepo.count();
   // If there's nothing in the table, add it.
   if (!supplyItemCount) {
-    STARTER_SUPPLY_ITEMS.forEach(
+    await STARTER_SUPPLY_ITEMS.forEach(
       async (item) => await addSupplyItem(supplyItemRepo, item),
     );
   }
