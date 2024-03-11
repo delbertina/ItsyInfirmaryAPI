@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { AppService } from '../services/app.service';
 import { SupplyItem } from 'src/models/app.model';
 
@@ -19,5 +19,10 @@ export class AppController {
   @Get('SupplyItemList/')
   async getSupplyItemList(): Promise<Array<SupplyItem>> {
     return await this.appService.findAll();
+  }
+
+  @Delete('SupplyItem/:id')
+  async deleteSupplyItem(@Param('id') id: number): Promise<void> {
+    return await this.appService.remove(id);
   }
 }
