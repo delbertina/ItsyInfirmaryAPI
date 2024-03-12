@@ -1,6 +1,7 @@
-import { Controller, Delete, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
 import { AppService } from '../services/app.service';
 import { SupplyItem } from 'src/models/app.model';
+import { UpdateResult } from 'typeorm';
 
 @Controller()
 export class AppController {
@@ -19,6 +20,14 @@ export class AppController {
   @Get('SupplyItemList/')
   async getSupplyItemList(): Promise<Array<SupplyItem>> {
     return await this.appService.findAll();
+  }
+
+  @Put('SupplyItem/:id')
+  async updateSupplyItem(
+    @Param('id') id: number,
+    @Body() item: SupplyItem,
+  ): Promise<UpdateResult> {
+    return await this.appService.updateOne(id, item);
   }
 
   @Delete('SupplyItem/:id')
