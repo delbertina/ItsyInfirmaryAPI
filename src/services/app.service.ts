@@ -5,10 +5,6 @@ import { UpdateResult } from 'typeorm';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   findAll(): Promise<SupplyItem[]> {
     return appDataSource.getRepository(SupplyItem).find();
   }

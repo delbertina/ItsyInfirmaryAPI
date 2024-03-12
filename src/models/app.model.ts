@@ -14,3 +14,14 @@ export class SupplyItem {
   @Column({ name: 'perishable', nullable: false })
   perishable: boolean;
 }
+
+export const checkIsSupplyItem = (item: any): boolean => {
+  if (
+    item.name !== undefined &&
+    item.description !== undefined &&
+    item.perishable !== undefined
+  ) {
+    return true;
+  }
+  return false;
+};

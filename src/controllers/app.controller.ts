@@ -1,16 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Put,
+} from '@nestjs/common';
 import { AppService } from '../services/app.service';
-import { SupplyItem } from 'src/models/app.model';
+import { SupplyItem, checkIsSupplyItem } from 'src/models/app.model';
 import { UpdateResult } from 'typeorm';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
 
   @Get('SupplyItem/:id')
   async getSupplyItem(@Param('id') id: number): Promise<SupplyItem | null> {
@@ -27,6 +31,10 @@ export class AppController {
     @Param('id') id: number,
     @Body() item: SupplyItem,
   ): Promise<UpdateResult> {
+    // If the body is not of the correct type, throw 400 error
+    if (!checkIsSupplyItem(item))
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    // Else attempt to update the item
     return await this.appService.updateOne(id, item);
   }
 
