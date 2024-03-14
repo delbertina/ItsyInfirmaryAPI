@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Put,
+  Query,
 } from '@nestjs/common';
 import { AppService } from '../services/app.service';
 import { SupplyItem, checkIsSupplyItem } from 'src/models/app.model';
@@ -22,8 +23,11 @@ export class AppController {
   }
 
   @Get('SupplyItemList/')
-  async getSupplyItemList(): Promise<Array<SupplyItem>> {
-    return await this.appService.findAll();
+  async getSupplyItemList(
+    @Query('take') take: number,
+    @Query('skip') skip: number,
+  ): Promise<Array<SupplyItem>> {
+    return await this.appService.findAll(take, skip);
   }
 
   @Put('SupplyItem/:id')

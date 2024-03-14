@@ -5,8 +5,8 @@ import { UpdateResult } from 'typeorm';
 
 @Injectable()
 export class AppService {
-  findAll(): Promise<SupplyItem[]> {
-    return appDataSource.getRepository(SupplyItem).find();
+  findAll(take?: number, skip?: number): Promise<SupplyItem[]> {
+    return appDataSource.getRepository(SupplyItem).find({ take, skip });
   }
 
   findOne(id: number): Promise<SupplyItem | null> {
