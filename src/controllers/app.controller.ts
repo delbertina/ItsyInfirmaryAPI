@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  Post,
   Put,
   Query,
 } from '@nestjs/common';
@@ -27,7 +28,7 @@ export class AppController {
     @Query('take') take: number,
     @Query('skip') skip: number,
   ): Promise<Array<SupplyItem>> {
-    return await this.appService.findAll(take, skip);
+    return await this.appService.findAll(!take || take > 25 ? 25 : take, skip);
   }
 
   @Put('SupplyItem/:id')
@@ -40,6 +41,15 @@ export class AppController {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     // Else attempt to update the item
     return await this.appService.updateOne(id, item);
+  }
+
+  @Post('SupplyItem/')
+  async addSupplyItem(@Body() item: SupplyItem): Promise<SupplyItem> {
+    // If the body is not of the correct type, throw 400 error
+    if (!checkIsSupplyItem(item))
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    // Else attempt to save the item
+    return await this.appService.saveOne(item);
   }
 
   @Delete('SupplyItem/:id')

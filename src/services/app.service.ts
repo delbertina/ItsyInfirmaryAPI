@@ -17,6 +17,10 @@ export class AppService {
     return appDataSource.getRepository(SupplyItem).update(id, item);
   }
 
+  saveOne(item: SupplyItem): Promise<SupplyItem> {
+    return appDataSource.getRepository(SupplyItem).save(item);
+  }
+
   async remove(id: number): Promise<void> {
     await appDataSource.getRepository(SupplyItem).delete(id);
   }
