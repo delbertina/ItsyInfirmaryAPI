@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { appDataSource } from 'src/main';
+import { appDataSource } from 'src/app.module';
 import { SupplyItem } from 'src/models/SupplyItem.model';
 import { UpdateResult } from 'typeorm';
 

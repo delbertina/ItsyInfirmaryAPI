@@ -16,11 +16,11 @@ import { UpdateResult } from 'typeorm';
 
 @Controller()
 export class SupplyItemController {
-  constructor(private readonly appService: SupplyItemService) {}
+  constructor(private readonly supplyItemService: SupplyItemService) {}
 
   @Get('SupplyItem/:id')
   async getSupplyItem(@Param('id') id: number): Promise<SupplyItem | null> {
-    return await this.appService.findOne(id);
+    return await this.supplyItemService.findOne(id);
   }
 
   @Get('SupplyItemList/')
@@ -28,7 +28,10 @@ export class SupplyItemController {
     @Query('take') take: number,
     @Query('skip') skip: number,
   ): Promise<Array<SupplyItem>> {
-    return await this.appService.findAll(!take || take > 25 ? 25 : take, skip);
+    return await this.supplyItemService.findAll(
+      !take || take > 25 ? 25 : take,
+      skip,
+    );
   }
 
   @Put('SupplyItem/:id')
@@ -40,7 +43,7 @@ export class SupplyItemController {
     if (!checkIsSupplyItem(item))
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     // Else attempt to update the item
-    return await this.appService.updateOne(id, item);
+    return await this.supplyItemService.updateOne(id, item);
   }
 
   @Post('SupplyItem/')
@@ -49,11 +52,11 @@ export class SupplyItemController {
     if (!checkIsSupplyItem(item))
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     // Else attempt to save the item
-    return await this.appService.saveOne(item);
+    return await this.supplyItemService.saveOne(item);
   }
 
   @Delete('SupplyItem/:id')
   async deleteSupplyItem(@Param('id') id: number): Promise<void> {
-    return await this.appService.remove(id);
+    return await this.supplyItemService.remove(id);
   }
 }

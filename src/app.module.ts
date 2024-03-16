@@ -5,6 +5,16 @@ import { SupplyItem } from './models/SupplyItem.model';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
+export const appDataSource = new DataSource({
+  type: 'sqlite',
+  database: 'db/sql-data.sqlite',
+  synchronize: true,
+  logging: true,
+  entities: [SupplyItem],
+  subscribers: [],
+  migrations: [],
+});
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
