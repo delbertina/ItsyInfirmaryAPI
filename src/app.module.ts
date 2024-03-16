@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './controllers/app.controller';
-import { AppService } from './services/app.service';
-import { SupplyItem } from './models/app.model';
+import { SupplyItemController } from './controllers/SupplyItem.controller';
+import { SupplyItemService } from './services/SupplyItem.service';
+import { SupplyItem } from './models/SupplyItem.model';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
@@ -14,8 +14,8 @@ import { DataSource } from 'typeorm';
       entities: [SupplyItem],
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [SupplyItemController],
+  providers: [SupplyItemService],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

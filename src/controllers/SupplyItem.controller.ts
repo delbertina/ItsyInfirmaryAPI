@@ -10,13 +10,13 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { AppService } from '../services/app.service';
-import { SupplyItem, checkIsSupplyItem } from 'src/models/app.model';
+import { SupplyItemService } from '../services/SupplyItem.service';
+import { SupplyItem, checkIsSupplyItem } from 'src/models/SupplyItem.model';
 import { UpdateResult } from 'typeorm';
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class SupplyItemController {
+  constructor(private readonly appService: SupplyItemService) {}
 
   @Get('SupplyItem/:id')
   async getSupplyItem(@Param('id') id: number): Promise<SupplyItem | null> {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { appDataSource } from 'src/main';
-import { SupplyItem } from 'src/models/app.model';
+import { SupplyItem } from 'src/models/SupplyItem.model';
 import { UpdateResult } from 'typeorm';
 
 @Injectable()
-export class AppService {
+export class SupplyItemService {
   findAll(take?: number, skip?: number): Promise<SupplyItem[]> {
     return appDataSource.getRepository(SupplyItem).find({ take, skip });
   }
