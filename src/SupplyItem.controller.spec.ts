@@ -62,4 +62,12 @@ describe('SupplyItemController', () => {
       expect(result).toEqual(STARTER_SUPPLY_ITEMS[0]);
     });
   });
+
+  describe('getSupplyItemList', () => {
+    it('should return all supply items', async () => {
+      const result = await supplyItemController.getSupplyItemList();
+      expect(supplyItemService.findAll).toHaveBeenCalled();
+      expect(result).toHaveLength(3);
+    });
+  });
 });

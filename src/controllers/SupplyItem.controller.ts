@@ -25,8 +25,8 @@ export class SupplyItemController {
 
   @Get('SupplyItemList/')
   async getSupplyItemList(
-    @Query('take') take: number,
-    @Query('skip') skip: number,
+    @Query('take') take?: number,
+    @Query('skip') skip?: number,
   ): Promise<Array<SupplyItem>> {
     return await this.supplyItemService.findAll(
       !take || take > 25 ? 25 : take,
