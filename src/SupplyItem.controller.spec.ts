@@ -90,6 +90,7 @@ describe('SupplyItemController', () => {
         name: 'test item',
         description: 'test stuff',
         perishable: false,
+        base_cost: 1,
       });
       expect(supplyItemService.saveOne).toHaveBeenCalled();
       expect(result.id).not.toEqual(1);
