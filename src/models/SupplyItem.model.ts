@@ -16,6 +16,9 @@ export class SupplyItem {
 
   @Column({ name: 'base_cost', default: 1, nullable: false })
   base_cost?: number;
+
+  @Column({ name: 'quick_buy_cost', default: 1, nullable: false })
+  quick_buy_cost?: number;
 }
 
 export const checkIsSupplyItem = (item: any): boolean => {
